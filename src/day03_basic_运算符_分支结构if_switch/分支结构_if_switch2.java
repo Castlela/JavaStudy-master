@@ -1,5 +1,10 @@
+//分支结构
+/*
+ * 1、顺序结构:从上往下逐行执行，每句必走，没有判断或循环
+ * 2、分支结构:有条件的执行语句，并非每句必走 if...else if...else...  switch case 
+ * 3、循环结构:
+ */
 package day03_basic_运算符_分支结构if_switch;
-
 import java.util.Scanner;
 
 //任何复杂的逻辑都是通过三种结构来实现

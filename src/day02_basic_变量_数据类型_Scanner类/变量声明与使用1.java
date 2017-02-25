@@ -1,7 +1,14 @@
+//java如何声明变量、赋值
+/*
+ * 注意:1、局部变量不会默认初始化，未赋值(初始化)前使用，编译错误
+ *     2、成员变量会默认初始化，声明后就能在普通方法中直接使用
+ *     3、main为静态方法，能访问方法内的局部变量、静态成员变量、静态方法
+ */
 package day02_basic_变量_数据类型_Scanner类;
-//变量例子
 public class 变量声明与使用1 {
-
+	
+	double money; //在此位置定义为static double money，才可被静态方法main访问
+	
 	public static void main(String[] args) {
 		/*
 		 * 变量声明 & 命名：
@@ -9,9 +16,9 @@ public class 变量声明与使用1 {
 		 * 2、名称建议以小写字母开头、下划线_、$符号开头 
 		 * 3、见名知意
 		 * 4、不能使用关键字命名*/
-		int age;
-		int height,weight;
-		double salary = 6000;
+		int age; //声明单个变量
+		int height,weight; //声明多个变量
+		double salary = 6000; 
 //******************************************************		
 		/*
 		 * 变量初始化 & 赋值
@@ -22,9 +29,9 @@ public class 变量声明与使用1 {
 		//System.out.println(l); //未赋值就打印，会报错。
 		l = 2000; 
 		System.out.println(l); //放在这个位置才对
+		//System.out.println(money); //不能访问非静态的成员变量
 //-------------------------------------------------------			
 		//int c = 4.5;  //必须与数据类型匹配
-			
 	}
 
 }

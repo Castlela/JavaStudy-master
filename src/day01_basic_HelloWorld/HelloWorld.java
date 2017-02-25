@@ -1,5 +1,5 @@
-//声明包
-package day01_basic_HelloWorld;
+//HelloWorld，JAVA学习的第一个程序
+package day01_basic_HelloWorld; //声明包
 //main为主方法，为程序入口
 public class HelloWorld { //声明类
 	//程序从main方法执行，也从main方法结束
@@ -12,7 +12,6 @@ public class HelloWorld { //声明类
 		*/
 		System.out.println("输出并换行!");
 		System.out.print("输出不换行!");
-
 	}
 
 }

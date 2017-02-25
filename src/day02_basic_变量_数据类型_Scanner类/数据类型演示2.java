@@ -1,5 +1,11 @@
+//数据类型：byte->short->int->long->float->double
+/*
+ * 注意:1、整型 4个字节，1字节=8bit，4*8=32bit 俗称32位，int的范围是正负21亿左右，超最大值会溢出
+ * 	   2、byte,short,char运算时一律先转为int，再运算。
+ * 	   3、byte c7 = (byte)(a7 + b7); //a7、b7为byte变量时运算会自动转为int，所以要强转
+ * 	   4、舍入误差: 3.0-2.9 = 0.10000000000000009
+ */
 package day02_basic_变量_数据类型_Scanner类;
-
 public class 数据类型演示2 {
 
 	public static void main(String[] args) {
@@ -26,7 +32,7 @@ public class 数据类型演示2 {
 		long d2 = 1000000000 * 2 * 10L; //20000000000正常，在没溢出前转换为long
 		System.out.println(d2);
 		
-		long e2 = 1000000000 * 3 * 10L; //-12949672960 溢出
+		long e2 = 1000000000 * 3 * 10L; //-12949672960 溢出,1000000000*3默认int类型超过21溢出
 		System.out.println(e2);
 		
 		long f2 = 1000000000L * 3 * 10; //30000000000正常，在没溢出前转换为long
@@ -42,7 +48,7 @@ public class 数据类型演示2 {
 		
 		double c3 = 3.0;
 		double d3 = 2.9;
-		System.out.println(d3-c3); //舍入误差
+		System.out.println("舍入误差"+(c3-d3)); //舍入误差
 		
 //boolean 布尔型，1个字节，值只能是true或false
 //********************************************************************
@@ -87,7 +93,7 @@ public class 数据类型演示2 {
 		
 		double h6 =25.96;
 		int i6 = (int)h6; //用浮点数转int，会出现精度丢失
-		System.out.println(i6); //25
+		System.out.println("i6 = "+i6); //25
 		
 		byte a7 = 5; //范围是-128~127，int直接量可以直接赋值给byte,short,char,long
 		byte b7 = 6;

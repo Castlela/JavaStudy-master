@@ -12,6 +12,7 @@ public class HelloWorld { //声明类
 		*/
 		System.out.println("输出并换行!");
 		System.out.print("输出不换行!");
+		System.out.println(20%2);
 	}
 
 }

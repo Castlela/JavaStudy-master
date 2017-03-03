@@ -33,6 +33,12 @@ public class ShootGame extends JPanel{
 	public static final int WIDTH = 400;
 	public static final int HEIGHT = 654;
 	
+	public static final int START = 0;
+	public static final int RUNNING = 1;
+	public static final int PAUSE = 2;
+	public static final int GAME_OVER = 3;
+	private int state = START;
+	
 	public static BufferedImage background;
 	public static BufferedImage start;
 	public static BufferedImage pause;
@@ -123,7 +129,7 @@ public class ShootGame extends JPanel{
 	
 	int score = 0;
 	public void bang(Bullet b){
-		System.out.println(score);
+		//System.out.println(score);
 		int bangIndex = -1;
 		for(int i=0;i<flyings.length;i++){
 			FlyingObject f = flyings[i];
@@ -159,6 +165,27 @@ public class ShootGame extends JPanel{
 		}
 	}
 	
+	public void checkGameOverAction(){
+		if(isGameOver()){
+			state = GAME_OVER;
+		}
+	}
+	
+	public boolean isGameOver(){
+		for(int i=0;i<flyings.length;i++){
+			FlyingObject f = flyings[i];
+			if(hero.hit(f)){
+				hero.substractLife();
+				hero.clearDoubleFire();
+				FlyingObject t = flyings[i];
+				flyings[i] = flyings[flyings.length-1];
+				flyings[flyings.length-1] = t;
+				flyings = Arrays.copyOf(flyings, flyings.length-1);
+			}
+		}
+		return hero.getLife() <= 0;
+	}
+	
 	static {
 		try {
 			background = ImageIO.read(ShootGame.class.getResource("background.png"));
@@ -183,6 +210,7 @@ public class ShootGame extends JPanel{
 		paintBullet(g);
 		paintHero(g);
 		paintScoreAndLife(g);
+		paintState(g);
 	}
 	public void paintFlyingObject(Graphics g) {
 		for(int i=0;i<flyings.length;i++){
@@ -206,15 +234,57 @@ public class ShootGame extends JPanel{
 		g.drawString("Life:"+hero.getLife(), 10, 50);
 		g.drawString("DoubleFire:"+hero.getDoubleFire(), 10, 75);
 	}
+	public void paintState(Graphics g) {
+		switch(state){
+		case START:
+			g.drawImage(start,0,0,null);
+			break;
+		case PAUSE:
+			g.drawImage(pause,0,0,null);
+			break;
+		case GAME_OVER:
+			g.drawImage(gameover,0,0,null);
+			break;
+		}
+	}
+	
 	public void action(){
 		MouseAdapter l = new MouseAdapter(){
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				int x = e.getX();
-				int y = e.getY();
-				hero.moveTo(x, y);
-				
+				if (state == RUNNING) {
+					int x = e.getX();
+					int y = e.getY();
+					hero.moveTo(x, y);
+				}
 			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				if(state == RUNNING){
+					state = PAUSE;
+				}
+			}
+			public void mouseEntered(MouseEvent e) {
+				if(state == PAUSE){
+					state = RUNNING;
+				}
+			}	
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				switch(state){
+				case START:
+					state = RUNNING;
+					break;
+				case GAME_OVER:
+					score = 0;
+					hero = new Hero();
+					flyings = new FlyingObject[0];
+					bullets = new Bullet[0];
+					state = START;
+					break;
+				}
+			}
+			
 		};
 		this.addMouseListener(l);/** 处理鼠标操作事件*/
 		this.addMouseMotionListener(l); /** 处理鼠标滑动事件*/
@@ -225,11 +295,14 @@ public class ShootGame extends JPanel{
 
 			@Override
 			public void run() {
-				enterAction();
-				stepAction();
-				shootAction();
-				outOfBoundAction();
-				bangAction();
+				if(state == RUNNING){
+					enterAction();
+					checkGameOverAction();
+					shootAction();
+					outOfBoundAction();
+					bangAction();
+					stepAction();
+				}
 				repaint();
 			}
 			

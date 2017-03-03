@@ -57,6 +57,9 @@ public class Hero extends FlyingObject {
 	public void addLife(){
 		life++;
 	}
+	public void substractLife(){
+		life--;
+	}
 	
 	public int getLife(){
 		return life;
@@ -66,17 +69,44 @@ public class Hero extends FlyingObject {
 		doubleFire+=40;
 	}
 	
+	public void clearDoubleFire(){
+		doubleFire = 0;
+	}
+	
 	public int getDoubleFire(){
 		return doubleFire;
 	}
 	
 	public boolean hit(FlyingObject obj){
-		int x1 = obj.x;
-		int x2 = obj.x+obj.width;
-		int y1 = obj.x;
-		int y2 = obj.y+obj.height;
-		int x = this.x;
-		return true;
+		int x1 = obj.x - this.width/2;
+		int x2 = obj.x + obj.width + this.width/2;
+		int y1 = obj.y - this.height/2;
+		int y2 = obj.y + obj.height + this.height/2;
+		
+		int x = this.x + this.width/2; //中心点X坐标
+		int y = this.y + this.height/2; 
+		
+		return x>x1 && x<x2
+				&&
+				y>y1 && y<y2;
+		
+		/*int x1 = this.x;
+		int x2 = this.x+this.width;
+		int y1 = this.y;
+		int y2 = this.y+this.height;
+		
+		int x = obj.x;
+		int x0 = obj.x+obj.width;
+		int y = obj.y;
+		int y0 = obj.y+obj.height;
+		
+		return x>x1 && x<x2
+				&&
+			   y>y1 && y<y2
+			   ||
+			   x0>x1 && x0<x2
+			   &&
+			   y0>y1 && y0<y2; */
 	}
 	
 }

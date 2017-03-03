@@ -1,4 +1,4 @@
-/**
+/**555555666
  * 1、先写ShootGame类准备游戏框架大小，游戏所用到的图片。
  * 2、在ShootGame写好游戏框架JFrame+面板JPanel,并setVisible();
  * 3、准备好抽象父类1个写step方法用于使图片动起来+接口2个

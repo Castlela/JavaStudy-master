@@ -7,7 +7,7 @@
 package day02_basic_变量_数据类型_Scanner类;
 public class 变量声明与使用1 {
 	
-	double money; //!!!在此位置定义为static double money，才可被静态方法main访问
+	double money; //【coding】在此位置定义为static double money，才可被静态方法main访问
 	
 	public static void main(String[] args) {
 		/*
